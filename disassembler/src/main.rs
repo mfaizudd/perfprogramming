@@ -86,17 +86,17 @@ fn mov(b: &[u8]) {
     let d = b[0] & 0b10 != 0;
     let w = b[0] & 0b1 != 0;
     let map = if w { &WREG } else { &REG };
-    let src = if d {
+    let src = if !d {
         map.get(&[((b[1] & 0b111000) >> 3)])
             .expect("Register not found")
     } else {
         map.get(&[(b[1] & 0b111)]).expect("Register not found")
     };
-    let dst = if !d {
+    let dst = if d {
         map.get(&[((b[1] & 0b111000) >> 3)])
             .expect("Register not found")
     } else {
         map.get(&[(b[1] & 0b111)]).expect("Register not found")
     };
-    println!("mov {src}, {dst}");
+    println!("mov {dst}, {src}");
 }
