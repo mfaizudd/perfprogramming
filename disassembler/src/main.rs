@@ -63,7 +63,11 @@ fn main() {
 fn ascii(buf: &[u8], file: &str) {
     println!("ASCII Binary representation of {}", file);
     for b in buf.chunks(2) {
-        println!("{:#08b} {:#08b}", b[0], b[1]);
+        if b.len() > 1 {
+            println!("{:#010b} {:#010b}", b[0], b[1]);
+        } else {
+            println!("{:#010b}", b[0]);
+        }
     }
 }
 
